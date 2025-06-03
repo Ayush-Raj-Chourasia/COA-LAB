@@ -1,0 +1,63 @@
+//LAB7 OBJECTIVE 2 USING KEIL 5
+//Count number of spaces in a string. 
+
+       AREA RESET, CODE, READONLY
+        ENTRY
+        EXPORT __main
+
+__main
+        LDR     R0, =STRING1           ; Pointer to string
+        MOV     R1, #0                 ; Space counter
+        MOV     R3, #0x20              ; ASCII for space
+        LDR     R4, =NULL_VALUE
+        LDRB    R5, [R4]               ; ASCII for newline '\n'
+
+COUNT_LOOP
+        LDRB    R2, [R0], #1           ; Load byte from string
+        CMP     R2, R5                 ; If newline, stop counting
+        BEQ     PRINT_MSG
+        CMP     R2, R3                 ; Compare with space
+        ADDEQ   R1, R1, #1             ; Increment counter if space
+        B       COUNT_LOOP
+
+PRINT_MSG
+        LDR     R4, =STRING2           ; Message string
+        LDR     R2, =USART2_BASE       ; USART2 base address
+
+PRINT_LOOP
+        LDRB    R0, [R4], #1
+        CMP     R0, #0
+        BEQ     DISPLAY_COUNT
+
+WAIT_TXE1
+        LDR     R6, [R2, #0x1C]        ; USART_SR offset 0x1C
+        TST     R6, #0x80              ; TXE bit (bit 7)
+        BEQ     WAIT_TXE1
+        STRB    R0, [R2, #0x28]        ; USART_DR offset 0x28
+        B       PRINT_LOOP
+
+; Display count digit
+DISPLAY_COUNT
+        LDR     R7, =RESULT
+        STRB    R1, [R7]               ; Store result in memory
+        ADD     R1, R1, #0x30          ; Convert to ASCII
+
+WAIT_TXE2
+        LDR     R6, [R2, #0x1C]
+        TST     R6, #0x80
+        BEQ     WAIT_TXE2
+        STRB    R1, [R2, #0x28]        ; Display digit
+
+STOP
+        B       STOP
+
+;---------------------------------------------
+USART2_BASE    EQU 0x40004400          ; Base address for USART2
+
+        AREA DATA, DATA, READWRITE
+NULL_VALUE     DCB 0x0A                ; ASCII '\n'
+STRING1        DCB "A A A A", 0x0A, 0  ; Input string
+STRING2        DCB "No of Spaces : ", 0 ; Message
+RESULT         DCB 0                   ; Result storage
+
+        END

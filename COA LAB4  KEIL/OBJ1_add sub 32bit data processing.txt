@@ -1,0 +1,41 @@
+//LAB 4
+//OBJECTIVE 1 USING KEIL 5
+//Perform Addition and Subtraction of two 32-bit numbers using data processing addressing mode (with immediate data).
+
+// 8-bit Data
+	AREA PROG1, CODE,READONLY
+	ENTRY
+START
+	MOV R0,#0X40
+	MOV R1,#0X50
+	ADDS R2,R0,R1
+	SUBS R3,R0,R1
+	MULS R4,R0,R1
+MY_EXIT
+	B MY_EXIT
+	END
+
+INPUT			OUTPUT		
+ML	DATA		ML	DATA	
+-	0x40 (R0)		-	0x90 (R2)	
+-	0x50 (R1)		-	0xfffffff0 (R3)	
+                    -	0x1400 (R4)	
+
+// 32-bit Data
+AREA prg1, CODE, READONLY
+ENTRY
+START
+    LDR R0, =0xAB000002
+    LDR R1, =0x1200000C
+    ADDS R2, R0, R1
+    SUBS R3, R0, R1
+    MUL R4, R0, R1
+my_exit
+    B my_exit
+END
+
+INPUT			OUTPUT		
+ML	DATA		   ML	DATA	
+-	0xAB000002		-	0xBD00000E	
+-	0x1200000C		-	0x98FFFFF6	
+                    -   0x28000018	

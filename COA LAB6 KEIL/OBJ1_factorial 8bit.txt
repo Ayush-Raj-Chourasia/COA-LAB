@@ -1,0 +1,28 @@
+//LAB6 OBJECTIVE 1 USING KEIL 5
+//Find the factorial of a given 8-bit number
+
+        AREA FACTORIAL, CODE, READONLY
+        ENTRY
+
+START
+        MOV     R0, #5             ; R0 = n (5)
+        MOV     R1, #1             ; R1 = result = 1
+
+fact_loop
+        CMP     R0, #0             ; Check if n == 0
+        BEQ     end_loop           ; If yes, end loop
+
+        MUL     R1, R1, R0         ; R1 = R1 * R0
+        SUBS    R0, R0, #1         ; R0 = R0 - 1
+        B       fact_loop          ; Repeat the loop
+
+end_loop
+        LDR     R2, =RESULT        ; Load address of RESULT
+        STR     R1, [R2]           ; Store factorial result in memory
+
+EXT
+        B       EXT                ; Infinite loop to end program
+        AREA RES, DATA, READWRITE
+RESULT  DCD     0x0                ; To store factorial result
+
+        END

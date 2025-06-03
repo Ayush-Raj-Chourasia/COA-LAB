@@ -1,0 +1,45 @@
+
+//Count number of spaces in a string. 
+.global _start
+_start:
+    .equ UART_BASE, 0xff201000
+    LDR R0, =STRING1
+    MOV R1, #0x00
+    MOV R3, #0x20
+    LDR R4, =NULL_VALUE
+    LDRB R5, [R4]
+
+BCK:
+    LDRB R2, [R0], #1
+    CMP R2, R5
+    BEQ PRINT
+    CMP R2, R3
+    ADDEQ R1, R1, #1
+    B BCK
+
+PRINT:
+    LDR R4, =STRING2
+    LDR R2, =UART_BASE
+
+PRINT1:
+    LDRB R0, [R4], #1
+    CMP R0, #0
+    BEQ STOP1
+    STRB R0, [R2]
+    B PRINT1
+
+STOP1:
+    LDR R7, =RESULT
+    STRB R1, [R7]
+    LDR R6, =UART_BASE
+    ADD R1, R1, #0x30
+    STRB R1, [R6]
+
+STOP:
+    B STOP
+
+.data
+NULL_VALUE: .byte 0x0a
+STRING1: .asciz "A A A A\n"
+STRING2: .asciz "No of Spaces : "
+RESULT: .byte 0

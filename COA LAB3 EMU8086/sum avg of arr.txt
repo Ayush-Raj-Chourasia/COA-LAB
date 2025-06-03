@@ -1,0 +1,34 @@
+; Find the sum and average of a given array of size N.
+
+.DATA
+N     DB 04H
+ARR   DB 10H, 20H, 30H, 40H
+SUM   DW ?
+AVG   DB ?
+
+.CODE
+MAIN PROC
+    MOV AX, @DATA
+    MOV DS, AX
+    XOR CX, CX
+    LEA SI, ARR
+    MOV BL, N
+
+SUM_LOOP:
+    MOV AL, [SI]
+    CBW
+    ADD CX, AX
+    INC SI
+    DEC BL
+    JNZ SUM_LOOP
+
+    MOV SUM, CX
+    MOV AX, CX
+    MOV BL, N
+    XOR AH, AH
+    DIV BL
+    MOV AVG, AL
+    MOV AH, 4CH
+    INT 21H
+MAIN ENDP
+END MAIN

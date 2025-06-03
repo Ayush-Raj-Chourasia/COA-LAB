@@ -1,0 +1,63 @@
+//LAB5 OBJECTIVE 3 USING KEIL 5
+//Separate Even numbers and odds numbers in an array of size N.
+
+	 AREA prog2, CODE, READONLY
+        ENTRY      ; Mark the first instruction to execute
+
+START
+        LDR     R0, =count         ; R0 points to count
+        LDR     R1, [R0]           ; R1 = number of elements
+        LDR     R3, =array         ; R3 = base address of array[0]
+        LDR     R4, =even          ; R4 = base address for even numbers
+        LDR     R5, =odd           ; R5 = base address for odd numbers
+
+loop
+        LDR     R6, [R3], #4       ; Load current element into R6, increment R3 by 4
+        ANDS    R7, R6, #1         ; Check if LSB is 0 (even) or 1 (odd)
+        BEQ     store_even         ; If even, branch to store_even
+        STR     R6, [R5], #4       ; Store odd number and increment odd pointer
+        B       next
+
+store_even
+        STR     R6, [R4], #4       ; Store even number and increment even pointer
+
+next
+        SUBS    R1, R1, #1         ; Decrement count
+        BNE     loop               ; If not zero, repeat loop
+
+exit
+        B       exit               ; Infinite loop (end of program)
+
+; -------------------------------
+; Data Section
+; -------------------------------
+
+        AREA DATA1, DATA, READONLY
+count   DCD     0x07               ; Number of elements in the array
+
+array   DCD     0x15               ; Array of integers
+        DCD     0x35
+        DCD     0x32
+        DCD     0x45
+        DCD     0x10
+        DCD     0x4F
+        DCD     0x34
+
+        AREA DATA2, DATA, READWRITE
+even    DCD     0x0                ; Memory space for even numbers
+        DCD     0x0
+        DCD     0x0
+        DCD     0x0
+        DCD     0x0
+        DCD     0x0
+        DCD     0x0
+
+odd     DCD     0x0                ; Memory space for odd numbers
+        DCD     0x0
+        DCD     0x0
+        DCD     0x0
+        DCD     0x0
+        DCD     0x0
+        DCD     0x0
+
+        END

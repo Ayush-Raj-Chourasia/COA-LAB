@@ -1,0 +1,7 @@
+;LAB1 OBJ 4
+; 2'S complement of an 8 bit integer
+MOV AL, [5000H]     ; Load value from memory  
+NOT AL              ; 1's complement of AL  
+ADD AL, 1           ; 2's complement of AL  
+MOV [5001H], AL     ; Store result  
+HLT                 ; Stop execution  

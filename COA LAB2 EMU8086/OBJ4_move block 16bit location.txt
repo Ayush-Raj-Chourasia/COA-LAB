@@ -1,0 +1,38 @@
+; LAB2 OBJECTIVE 4
+; Move a block of 16-bit data from one location to another.
+
+; Intra-Segment Data Transfer
+MOV AX, 2000H     ; Set DS  
+MOV DS, AX        ; Load DS  
+
+MOV SI, 3000H     ; Source ptr  
+MOV DI, 5000H     ; Dest ptr  
+MOV CL, 05H       ; Count = 5  
+
+L1: MOV BX, [SI]  ; Load word  
+    MOV [DI], BX  ; Store word  
+    INC SI        ; SI += 2  
+    INC SI  
+    INC DI        ; DI += 2  
+    INC DI  
+    DEC CL        ; Decrement count  
+    JNZ L1        ; Loop if not 0  
+HLT               ; Stop      2000:5000
+
+; Inter-Segment Data Transfer
+MOV AX, 2000H     ; Set DS  
+MOV DS, AX        ; DS = 2000H  
+
+MOV AX, 5000H     ; Set ES  
+MOV ES, AX        ; ES = 5000H  
+
+MOV SI, 3000H     ; Src addr  
+MOV DI, 3000H     ; Dest addr  
+MOV CL, 04H       ; Count = 4  
+
+L1: MOVSW         ; Move word DS:[SI] → ES:[DI]  
+    DEC CL        ; Count--  
+    JNZ L1        ; Loop if not zero  
+
+HLT               ; Stop     2000:5000
+

@@ -1,0 +1,18 @@
+; LAB2 OBJECTIVE 1
+;  Multiplication of two 16-bit numbers without using MUL instruction in direct addressing mode.
+
+MOV BX, [5000H]     ; Load multiplicand into BX  
+MOV CX, [5002H]     ; Load multiplier into CX  
+MOV DX, 0000H       ; Clear DX (high result)  
+MOV AX, 0000H       ; Clear AX (low result)  
+
+L2: ADD AX, BX      ; AX += BX  
+    JNC L1          ; If no carry, skip  
+    INC DX          ; Else, increment high word (carry to DX)  
+
+L1: DEC CX          ; Decrement multiplier  
+    JNZ L2          ; Repeat if CX ≠ 0  
+
+MOV [5004H], AX     ; Store low word of result  
+MOV [5006H], DX     ; Store high word of result  
+HLT                 ; Stop execution  

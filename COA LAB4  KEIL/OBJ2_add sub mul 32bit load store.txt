@@ -1,0 +1,26 @@
+//LAB 4
+//OBJECTIVE 2  USING KEIL 5
+//Perform Addition, Subtraction, and Multiplication of two 32-bit numbers using load/store addressing mode
+
+	AREA prg1, CODE, READONLY
+	ENTRY
+START
+	LDR R0,=0X40000000
+	LDR R1,[R0],#4
+	LDR R2,[R0],#4
+	ADDS R3,R1,R2
+	STR R3,[R0],#4
+	SUBS R4,R1,R2
+	STR R4,[R0],#4
+	MUL R5,R1,R2
+	STR R5,[R0]
+my_exit
+	B my_exit
+	END
+
+INPUT			    OUTPUT		
+ML	DATA		    ML	DATA	
+0x10100000	0x40		0x10100008	0x90	
+0x10100004	0x50		0x1010000C	0xfffffff0	
+                        0x10100010	0x1400		
+	

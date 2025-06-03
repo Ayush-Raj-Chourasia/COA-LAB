@@ -1,0 +1,9 @@
+;LAB1 OBJ 3
+;Gray code of an 8 bit binary number
+
+MOV AL, [5000H]     ; Load binary number  
+MOV BL, AL          ; Copy to BL  
+SHR BL, 1           ; Shift right by 1  
+XOR AL, BL          ; AL = Binary XOR (Binary >> 1)  
+MOV [5001H], AL     ; Store Gray code  
+HLT                 ; Stop execution  

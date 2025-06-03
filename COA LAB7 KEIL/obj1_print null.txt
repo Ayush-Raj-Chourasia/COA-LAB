@@ -1,0 +1,33 @@
+//LAB7 OBJECTIVE 1 USING KEIL 5
+//Print a null terminated string
+        AREA RESET, CODE, READONLY
+        ENTRY
+        EXPORT __main
+
+__main
+        LDR     R4, =First              ; Load address of string
+        LDR     R1, =USART2_BASE        ; UART base address
+
+loop_print
+        LDRB    R0, [R4], #1            ; Load a character
+        CMP     R0, #0                  ; Check for null-terminator
+        BEQ     done                    ; End if null
+
+wait_txe
+        LDR     R2, [R1, #0x1C]         ; USART_SR (offset 0x1C on STM32)
+        TST     R2, #0x80               ; TXE (bit 7) == Transmit data register empty
+        BEQ     wait_txe                ; Wait if not ready
+
+        STRB    R0, [R1, #0x28]         ; USART_DR (offset 0x28)
+        B       loop_print              ; Continue loop
+
+done
+        B       done                    ; Halt
+
+; ----------------------------------
+USART2_BASE   EQU 0x40004400           ; Base address for USART2 (STM32F4)
+
+        AREA DATA, DATA, READWRITE
+First   DCB "Barsa samantaray", 0x0A, 0 ; string + newline + null terminator
+
+        END

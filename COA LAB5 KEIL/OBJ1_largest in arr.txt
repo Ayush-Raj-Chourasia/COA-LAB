@@ -1,0 +1,46 @@
+       //LAB 5 OBJECTIVE 1  USING KEIL
+       //Find the largest number in each array of size N
+	AREA PROG1, CODE, READONLY
+        ENTRY
+        START
+
+        ; Find the largest number from a given array
+
+        LDR     R0, =count         ; R0 holds the address of count
+        LDR     R1, [R0]           ; R1 = count (number of elements)
+        LDR     R2, =array         ; R2 points to the base address of array
+        LDR     R3, [R2], #4       ; R3 = first element (initial max), R2 += 4
+
+back
+        SUBS    R1, R1, #1         ; Decrement count
+        BEQ     fwd                ; If count is 0, go to fwd (done)
+
+        LDR     R4, [R2], #4       ; Load next element into R4, R2 += 4
+        CMP     R3, R4             ; Compare current max (R3) with new value (R4)
+        BGT     back               ; If R3 > R4, keep R3
+        MOV     R3, R4             ; Else, update max
+        B       back
+
+fwd
+        LDR     R5, =LARGEST       ; R5 points to RESULT address
+        STR     R3, [R5]           ; Store max value in memory
+
+exit
+        B       exit               ; Infinite loop to end the program
+
+; Data section
+        AREA DATA1, DATA, READONLY
+count   DCD     0x07               ; Number of elements = 7
+
+array   DCD     0x15               ; Array elements
+        DCD     0x35
+        DCD     0x32
+        DCD     0x45
+        DCD     0x10
+        DCD     0x4F
+        DCD     0x34
+
+        AREA DATA2, DATA, READWRITE
+LARGEST DCD     0x0                ; To store the result (largest number)
+
+        END

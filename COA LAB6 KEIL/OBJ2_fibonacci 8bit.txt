@@ -1,0 +1,46 @@
+//LAB6 OBJECTIVE 2 USING KEIL 5  
+//Find the Fibonacci Series up to n digits (8-bit number).
+
+        AREA fibnacci, CODE, READONLY
+        ENTRY
+
+START
+        MOV     R1, #1             ; R1 = 1 (second Fibonacci number)
+        MOV     R2, #0             ; R2 = 0 (first Fibonacci number)
+        MOV     R3, #0             ; R3 = temp holder for sum
+
+        LDR     R0, =COUNT         ; R0 -> COUNT
+        LDRB    R5, [R0]           ; R5 = number of terms (N)
+        LDR     R6, =FIB_SERIES    ; R6 -> base address to store series
+
+        CMP     R5, #1             ; If N <= 1
+        BLE     STORE_SINGLE       ; Store a single Fibonacci number
+
+        STRB    R2, [R6], #1       ; Store first number (0), then R6++
+        SUBS    R5, R5, #1         ; Decrease count (N-1)
+        STRB    R1, [R6], #1       ; Store second number (1), then R6++
+        SUBS    R5, R5, #1         ; Decrease count (N-2)
+
+FIB_LOOP
+        BEQ     DONE               ; If count is 0, we're done
+
+        ADD     R3, R1, R2         ; R3 = R1 + R2 (next term)
+        STRB    R3, [R6], #1       ; Store next term, R6++
+
+        MOV     R2, R1             ; R2 = R1 (prev)
+        MOV     R1, R3             ; R1 = new term
+
+        SUBS    R5, R5, #1         ; Decrement counter
+        B       FIB_LOOP           ; Repeat loop
+
+STORE_SINGLE
+        STRB    R2, [R6]           ; If only one term, store 0
+
+DONE
+        B       DONE               ; Infinite loop to end
+
+        AREA DATA1, DATA, READWRITE
+COUNT       DCB     0x0A           ; N = 10
+FIB_SERIES  DCB     0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0 ; space for 10 bytes
+
+        END

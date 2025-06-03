@@ -1,0 +1,27 @@
+;LAB 3
+;OBJECTIVE 1 Largest number
+;Find the largest/smallest number (8-bit number) from a given array of size N
+
+.data
+count db 04h
+value db 09h,10h,05h,03h
+res db ?
+.code
+main proc
+mov ax,data
+mov ds,ax
+mov cl,count
+dec cl
+lea si,value
+mov al,[si]
+
+up:inc si
+cmp al,[si]
+jnc nxt
+mov al,[si]
+nxt: dec cl
+jnz up
+lea di,res
+mov [di],al
+
+end main      ; 0710:0000

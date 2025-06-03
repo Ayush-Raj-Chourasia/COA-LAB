@@ -1,0 +1,20 @@
+
+//Print a null terminated string
+
+.global _start
+_start:
+    .equ UART_BASE, 0xff201000
+    LDR R4, =First
+    LDR R1, =UART_BASE
+PRINT:
+    LDRB R0, [R4], #1
+    CMP R0, #0
+    BEQ STOP
+    STRB R0, [R1]
+    B PRINT
+STOP:
+    B STOP
+
+.data
+.align
+First: .asciz "Sunita Samant\n"

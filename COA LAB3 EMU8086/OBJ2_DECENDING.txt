@@ -1,0 +1,33 @@
+;LAB 3
+;OBJECTIVE 2 DESCENDING
+;Arrange the elements (8-bit number) of a given array of size N in ascending/descending order.
+
+
+.data
+count db 05h
+value db 32h, 45h, 0fh, 05h
+
+.code
+main proc
+mov ax,data
+mov ds,ax
+lea di, count
+mov ch, [di]
+dec ch
+up2:mov cl,ch
+lea si,value
+
+up1: mov al,[si]
+cmp al,[si+1]
+jnc down
+mov dl,[si+1]
+xchg [si],dl
+mov [si+1],dl
+
+down: inc si
+dec cl
+jnz up1
+dec ch
+jnz up2
+
+end main

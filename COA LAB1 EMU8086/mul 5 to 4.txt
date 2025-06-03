@@ -1,0 +1,16 @@
+; Multiply 05h to 04h  without using arithmetic
+
+MOV AX, 0000H
+MOV BX, 05H
+MOV CX, 04H
+LOOP_LABEL:
+TEST CX, 01H
+JZ SKIP_ADD
+ADD AX, BX
+SKIP_ADD:
+SHL BX, 1
+SHR CX, 1
+JNZ LOOP_LABEL
+HLT
+
+

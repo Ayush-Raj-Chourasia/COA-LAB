@@ -1,0 +1,11 @@
+; Division of two 16-bit numbers without using DIV instruction in direct addressing
+
+MOV AX, 3000H
+MOV BX, 0010H
+MOV CX, 0000H
+LI:
+SUB AX, BX
+INC CX
+JNC LI
+MOV DX, AX
+HLT

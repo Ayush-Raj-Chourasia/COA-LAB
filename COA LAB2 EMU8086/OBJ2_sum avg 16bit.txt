@@ -1,0 +1,31 @@
+;LAB2  OBJECTIVE 2
+;Find the sum and average of N 16-bit numbers
+
+MOV SI, 5000H     ; Start addr  
+MOV CL, [SI]      ; Load count  
+MOV CH, 00H       ; Clear CH  
+MOV BX, CX        ; Copy count  
+MOV AX, 0000H     ; Clear sum  
+
+L2: INC SI        ; Next data  
+    INC SI  
+    ADD AX, [SI]  ; Add number  
+    JNC L1        ; No carry?  
+    INC CH        ; Add carry  
+
+L1: DEC CL        ; Decr count  
+    JNZ L2        ; Repeat  
+INC SI            ; Move ahead  
+INC SI  
+MOV [SI], AX      ; Store sum  
+INC SI  
+INC SI  
+MOV [SI], CH      ; Store carry  
+DIV BX            ; AX ÷ BX  
+INC SI  
+INC SI  
+MOV [SI], AX      ; Store avg  
+INC SI  
+INC SI  
+MOV [SI], DX      ; Store rem  
+HLT

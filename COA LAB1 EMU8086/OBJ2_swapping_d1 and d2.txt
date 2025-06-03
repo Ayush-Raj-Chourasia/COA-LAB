@@ -1,0 +1,24 @@
+;LAB 1 OBJ 2
+
+;Perform the following operations on two 8-bit data (data1, data2) given in memory
+;locations and store the result in another memory location using indirect
+;addressing mode.
+
+;(i)Swapping of nibble of data1
+MOV AL, [5000H]     ; Load byte
+MOV BL, AL          ; Copy to BL
+SHR AL, 4           ; High nibble → low
+SHL BL, 4           ; Low nibble → high
+OR AL, BL           ; Combine nibbles
+MOV [5001H], AL     ; Store result
+HLT                 ; Stop
+
+;(ii)Y =(data1 and data2) or (data1 xor data2)
+MOV AL, [5000H]     ; Load data1  
+MOV BL, [5001H]     ; Load data2  
+MOV CL, AL          ; Copy to CL  
+AND AL, BL          ; AL = D1 AND D2  
+XOR CL, BL          ; CL = D1 XOR D2  
+OR AL, CL           ; AL = (AND) OR (XOR)  
+MOV [5002H], AL     ; Store result  
+HLT                 ; Stop  

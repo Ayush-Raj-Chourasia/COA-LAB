@@ -1,0 +1,18 @@
+; LAB2 OBJECTIVE 3
+;Count no. of 0’s in an 8-bit number
+
+MOV SI, 5000H     ; Start addr  
+MOV AL, [SI]      ; Load byte  
+MOV CL, 08H       ; Bit count  
+MOV CH, 00H       ; Zero count  
+
+L2: SHR AL, 01H   ; Shift right  
+    JNC L1        ; If 0, skip  
+    INC CH        ; Count 1s  
+
+L1: DEC CL        ; Next bit  
+    JNZ L2        ; Loop  
+
+INC SI            ; Next addr  
+MOV [SI], CH      ; Store count  
+HLT               ; Stop  

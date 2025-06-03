@@ -1,0 +1,28 @@
+; LAB1 OBJ 1
+; Add, Sub, Mul, Div of two 16-bit no. store the results using direct addressing mode
+
+MOV AX, 5544H       ; AX ← 5544h  
+MOV BX, 2345H       ; BX ← 2345h  
+MOV CX, AX          ; Save AX in CX  
+
+; Addition
+ADD AX, BX          ; AX += BX  
+MOV [4500H], AX     ; Store sum  
+
+; Subtraction
+SUB AX, BX          ; AX -= BX  
+MOV [4502H], AX     ; Store diff  
+
+; Multiplication
+MOV AX, CX          ; Restore AX  
+MUL BX              ; AX * BX  
+MOV [4504H], AX     ; Store low product
+MOV [4506H], DX     ; Move DX
+MOV DX, 0000H       ; Clear DX  
+
+; Division
+MOV AX, CX          ; Restore AX  
+DIV BX              ; AX ÷ BX  
+MOV [4508H], AX     ; Store quotient  
+MOV [450AH], DX     ; Store remainder  
+HLT                 ; End program
