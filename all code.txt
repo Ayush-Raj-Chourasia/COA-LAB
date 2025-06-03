@@ -1,0 +1,990 @@
+Folder COA-LAB
+31 printable files
+COA-LAB\COA LAB1 EMU8086\OBJ1_add sub mul div 16bit.txt
+COA-LAB\COA LAB1 EMU8086\OBJ2_swapping_d1 and d2.txt
+COA-LAB\COA LAB1 EMU8086\OBJ3_gray-binary_8bit.txt
+COA-LAB\COA LAB1 EMU8086\OBJ4_2s complement 8bit.txt
+COA-LAB\COA LAB1 EMU8086\mul 5 to 4.txt
+COA-LAB\COA LAB2 EMU8086\Div 16bit.txt
+COA-LAB\COA LAB2 EMU8086\OBJ1_mul without mul 16bit.txt
+COA-LAB\COA LAB2 EMU8086\OBJ2_sum avg 16bit.txt
+COA-LAB\COA LAB2 EMU8086\OBJ3_count 0s 8bit.txt
+COA-LAB\COA LAB2 EMU8086\OBJ4_move block 16bit location.txt
+COA-LAB\COA LAB3 EMU8086\OBJ1_LARGEST.txt
+COA-LAB\COA LAB3 EMU8086\OBJ1_SMALLEST.txt
+COA-LAB\COA LAB3 EMU8086\OBJ2_ASCENDING.txt
+COA-LAB\COA LAB3 EMU8086\OBJ2_DECENDING.txt
+COA-LAB\COA LAB3 EMU8086\sum avg of arr.txt
+COA-LAB\COA LAB4  KEIL\OBJ1_add sub 32bit data processing.txt
+COA-LAB\COA LAB4  KEIL\OBJ2_add sub mul 32bit load store.txt
+COA-LAB\COA LAB4  KEIL\OBJ3_logical and or xor not 32bit.txt
+COA-LAB\COA LAB4 CPULATOR\OBJ1_add sub 32bit data processing.txt
+COA-LAB\COA LAB4 CPULATOR\OBJ2_add sub mul 32bit load store.txt
+COA-LAB\COA LAB4 CPULATOR\OBJ3_logical and or xor not 32bit.txt
+COA-LAB\COA LAB5 KEIL\OBJ1_largest in arr.txt
+COA-LAB\COA LAB5 KEIL\OBJ2_smallest in arr.txt
+COA-LAB\COA LAB5 KEIL\OBJ3_separate even odd arr.txt
+COA-LAB\COA LAB6 KEIL\OBJ1_factorial 8bit.txt
+COA-LAB\COA LAB6 KEIL\OBJ2_fibonacci 8bit.txt
+COA-LAB\COA LAB7 CPULATOR\obj1_print null.txt
+COA-LAB\COA LAB7 CPULATOR\obj2_count space.txt
+COA-LAB\COA LAB7 KEIL\obj1_print null.txt
+COA-LAB\COA LAB7 KEIL\obj2_count space.txt
+COA-LAB\README.md
+COA-LAB\COA LAB1 EMU8086\OBJ1_add sub mul div 16bit.txt
+; LAB1 OBJ 1
+; Add, Sub, Mul, Div of two 16-bit no. store the results using direct addressing mode
+
+MOV AX, 5544H       ; AX ← 5544h  
+MOV BX, 2345H       ; BX ← 2345h  
+MOV CX, AX          ; Save AX in CX  
+
+; Addition
+ADD AX, BX          ; AX += BX  
+MOV [4500H], AX     ; Store sum  
+
+; Subtraction
+SUB AX, BX          ; AX -= BX  
+MOV [4502H], AX     ; Store diff  
+
+; Multiplication
+MOV AX, CX          ; Restore AX  
+MUL BX              ; AX * BX  
+MOV [4504H], AX     ; Store low product
+MOV [4506H], DX     ; Move DX
+MOV DX, 0000H       ; Clear DX  
+
+; Division
+MOV AX, CX          ; Restore AX  
+DIV BX              ; AX ÷ BX  
+MOV [4508H], AX     ; Store quotient  
+MOV [450AH], DX     ; Store remainder  
+HLT                 ; End program
+
+COA-LAB\COA LAB1 EMU8086\OBJ2_swapping_d1 and d2.txt
+;LAB 1 OBJ 2
+
+;Perform the following operations on two 8-bit data (data1, data2) given in memory
+;locations and store the result in another memory location using indirect
+;addressing mode.
+
+;(i)Swapping of nibble of data1
+MOV AL, [5000H]     ; Load byte
+MOV BL, AL          ; Copy to BL
+SHR AL, 4           ; High nibble → low
+SHL BL, 4           ; Low nibble → high
+OR AL, BL           ; Combine nibbles
+MOV [5001H], AL     ; Store result
+HLT                 ; Stop
+
+;(ii)Y =(data1 and data2) or (data1 xor data2)
+MOV AL, [5000H]     ; Load data1  
+MOV BL, [5001H]     ; Load data2  
+MOV CL, AL          ; Copy to CL  
+AND AL, BL          ; AL = D1 AND D2  
+XOR CL, BL          ; CL = D1 XOR D2  
+OR AL, CL           ; AL = (AND) OR (XOR)  
+MOV [5002H], AL     ; Store result  
+HLT                 ; Stop  
+
+COA-LAB\COA LAB1 EMU8086\OBJ3_gray-binary_8bit.txt
+;LAB1 OBJ 3
+;Gray code of an 8 bit binary number
+
+MOV AL, [5000H]     ; Load binary number  
+MOV BL, AL          ; Copy to BL  
+SHR BL, 1           ; Shift right by 1  
+XOR AL, BL          ; AL = Binary XOR (Binary >> 1)  
+MOV [5001H], AL     ; Store Gray code  
+HLT                 ; Stop execution  
+COA-LAB\COA LAB1 EMU8086\OBJ4_2s complement 8bit.txt
+;LAB1 OBJ 4
+; 2'S complement of an 8 bit integer
+MOV AL, [5000H]     ; Load value from memory  
+NOT AL              ; 1's complement of AL  
+ADD AL, 1           ; 2's complement of AL  
+MOV [5001H], AL     ; Store result  
+HLT                 ; Stop execution  
+
+COA-LAB\COA LAB1 EMU8086\mul 5 to 4.txt
+; Multiply 05h to 04h  without using arithmetic
+
+MOV AX, 0000H
+MOV BX, 05H
+MOV CX, 04H
+LOOP_LABEL:
+TEST CX, 01H
+JZ SKIP_ADD
+ADD AX, BX
+SKIP_ADD:
+SHL BX, 1
+SHR CX, 1
+JNZ LOOP_LABEL
+HLT
+
+
+
+COA-LAB\COA LAB2 EMU8086\Div 16bit.txt
+; Division of two 16-bit numbers without using DIV instruction in direct addressing
+
+MOV AX, 3000H
+MOV BX, 0010H
+MOV CX, 0000H
+LI:
+SUB AX, BX
+INC CX
+JNC LI
+MOV DX, AX
+HLT
+
+COA-LAB\COA LAB2 EMU8086\OBJ1_mul without mul 16bit.txt
+; LAB2 OBJECTIVE 1
+;  Multiplication of two 16-bit numbers without using MUL instruction in direct addressing mode.
+
+MOV BX, [5000H]     ; Load multiplicand into BX  
+MOV CX, [5002H]     ; Load multiplier into CX  
+MOV DX, 0000H       ; Clear DX (high result)  
+MOV AX, 0000H       ; Clear AX (low result)  
+
+L2: ADD AX, BX      ; AX += BX  
+    JNC L1          ; If no carry, skip  
+    INC DX          ; Else, increment high word (carry to DX)  
+
+L1: DEC CX          ; Decrement multiplier  
+    JNZ L2          ; Repeat if CX ≠ 0  
+
+MOV [5004H], AX     ; Store low word of result  
+MOV [5006H], DX     ; Store high word of result  
+HLT                 ; Stop execution  
+
+COA-LAB\COA LAB2 EMU8086\OBJ2_sum avg 16bit.txt
+;LAB2  OBJECTIVE 2
+;Find the sum and average of N 16-bit numbers
+
+MOV SI, 5000H     ; Start addr  
+MOV CL, [SI]      ; Load count  
+MOV CH, 00H       ; Clear CH  
+MOV BX, CX        ; Copy count  
+MOV AX, 0000H     ; Clear sum  
+
+L2: INC SI        ; Next data  
+    INC SI  
+    ADD AX, [SI]  ; Add number  
+    JNC L1        ; No carry?  
+    INC CH        ; Add carry  
+
+L1: DEC CL        ; Decr count  
+    JNZ L2        ; Repeat  
+INC SI            ; Move ahead  
+INC SI  
+MOV [SI], AX      ; Store sum  
+INC SI  
+INC SI  
+MOV [SI], CH      ; Store carry  
+DIV BX            ; AX ÷ BX  
+INC SI  
+INC SI  
+MOV [SI], AX      ; Store avg  
+INC SI  
+INC SI  
+MOV [SI], DX      ; Store rem  
+HLT
+
+COA-LAB\COA LAB2 EMU8086\OBJ3_count 0s 8bit.txt
+; LAB2 OBJECTIVE 3
+;Count no. of 0’s in an 8-bit number
+
+MOV SI, 5000H     ; Start addr  
+MOV AL, [SI]      ; Load byte  
+MOV CL, 08H       ; Bit count  
+MOV CH, 00H       ; Zero count  
+
+L2: SHR AL, 01H   ; Shift right  
+    JNC L1        ; If 0, skip  
+    INC CH        ; Count 1s  
+
+L1: DEC CL        ; Next bit  
+    JNZ L2        ; Loop  
+
+INC SI            ; Next addr  
+MOV [SI], CH      ; Store count  
+HLT               ; Stop  
+COA-LAB\COA LAB2 EMU8086\OBJ4_move block 16bit location.txt
+; LAB2 OBJECTIVE 4
+; Move a block of 16-bit data from one location to another.
+
+; Intra-Segment Data Transfer
+MOV AX, 2000H     ; Set DS  
+MOV DS, AX        ; Load DS  
+
+MOV SI, 3000H     ; Source ptr  
+MOV DI, 5000H     ; Dest ptr  
+MOV CL, 05H       ; Count = 5  
+
+L1: MOV BX, [SI]  ; Load word  
+    MOV [DI], BX  ; Store word  
+    INC SI        ; SI += 2  
+    INC SI  
+    INC DI        ; DI += 2  
+    INC DI  
+    DEC CL        ; Decrement count  
+    JNZ L1        ; Loop if not 0  
+HLT               ; Stop      2000:5000
+
+; Inter-Segment Data Transfer
+MOV AX, 2000H     ; Set DS  
+MOV DS, AX        ; DS = 2000H  
+
+MOV AX, 5000H     ; Set ES  
+MOV ES, AX        ; ES = 5000H  
+
+MOV SI, 3000H     ; Src addr  
+MOV DI, 3000H     ; Dest addr  
+MOV CL, 04H       ; Count = 4  
+
+L1: MOVSW         ; Move word DS:[SI] → ES:[DI]  
+    DEC CL        ; Count--  
+    JNZ L1        ; Loop if not zero  
+
+HLT               ; Stop     2000:5000
+
+
+COA-LAB\COA LAB3 EMU8086\OBJ1_LARGEST.txt
+;LAB 3
+;OBJECTIVE 1 Largest number
+;Find the largest/smallest number (8-bit number) from a given array of size N
+
+.data
+count db 04h
+value db 09h,10h,05h,03h
+res db ?
+.code
+main proc
+mov ax,data
+mov ds,ax
+mov cl,count
+dec cl
+lea si,value
+mov al,[si]
+
+up:inc si
+cmp al,[si]
+jnc nxt
+mov al,[si]
+nxt: dec cl
+jnz up
+lea di,res
+mov [di],al
+
+end main      ; 0710:0000
+COA-LAB\COA LAB3 EMU8086\OBJ1_SMALLEST.txt
+;LAB 3
+;OBJECTIVE 1 Smallest number
+;Find the largest/smallest number (8-bit number) from a given array of size N.
+
+.data
+count db 04h
+value db 09h,10h,05h,03h
+res db ?
+.code
+main proc
+mov ax,data
+mov ds,ax
+mov cl,count
+dec cl
+lea si,value
+mov al,[si]
+
+up:inc si
+cmp al,[si]
+jc nxt
+mov al,[si]
+nxt: dec cl
+jnz up
+lea di,res
+mov [di],al
+
+end main
+COA-LAB\COA LAB3 EMU8086\OBJ2_ASCENDING.txt
+;LAB 3
+;OBJECTIVE 2 ASCENDING
+;Arrange the elements (8-bit number) of a given array of size N in ascending/descending order.
+
+
+.data
+count db 04h
+value db  32h, 45h, 0fh, 05h
+
+.code
+main proc
+mov ax,data
+mov ds,ax
+lea di, count
+mov ch, [di]
+dec ch
+up2:mov cl,ch
+lea si,value
+
+up1: mov al,[si]
+cmp al,[si+1]
+jc down
+mov dl,[si+1]
+xchg [si],dl
+mov [si+1],dl
+
+down: inc si
+dec cl
+jnz up1
+dec ch
+jnz up2
+
+end main; 0710:0000
+COA-LAB\COA LAB3 EMU8086\OBJ2_DECENDING.txt
+;LAB 3
+;OBJECTIVE 2 DESCENDING
+;Arrange the elements (8-bit number) of a given array of size N in ascending/descending order.
+
+
+.data
+count db 05h
+value db 32h, 45h, 0fh, 05h
+
+.code
+main proc
+mov ax,data
+mov ds,ax
+lea di, count
+mov ch, [di]
+dec ch
+up2:mov cl,ch
+lea si,value
+
+up1: mov al,[si]
+cmp al,[si+1]
+jnc down
+mov dl,[si+1]
+xchg [si],dl
+mov [si+1],dl
+
+down: inc si
+dec cl
+jnz up1
+dec ch
+jnz up2
+
+end main
+COA-LAB\COA LAB3 EMU8086\sum avg of arr.txt
+; Find the sum and average of a given array of size N.
+
+.DATA
+N     DB 04H
+ARR   DB 10H, 20H, 30H, 40H
+SUM   DW ?
+AVG   DB ?
+
+.CODE
+MAIN PROC
+    MOV AX, @DATA
+    MOV DS, AX
+    XOR CX, CX
+    LEA SI, ARR
+    MOV BL, N
+
+SUM_LOOP:
+    MOV AL, [SI]
+    CBW
+    ADD CX, AX
+    INC SI
+    DEC BL
+    JNZ SUM_LOOP
+
+    MOV SUM, CX
+    MOV AX, CX
+    MOV BL, N
+    XOR AH, AH
+    DIV BL
+    MOV AVG, AL
+    MOV AH, 4CH
+    INT 21H
+MAIN ENDP
+END MAIN
+
+COA-LAB\COA LAB4 KEIL\OBJ1_add sub 32bit data processing.txt
+//LAB 4
+//OBJECTIVE 1 USING KEIL 5
+//Perform Addition and Subtraction of two 32-bit numbers using data processing addressing mode (with immediate data).
+
+// 8-bit Data
+	AREA PROG1, CODE,READONLY
+	ENTRY
+START
+	MOV R0,#0X40
+	MOV R1,#0X50
+	ADDS R2,R0,R1
+	SUBS R3,R0,R1
+	MULS R4,R0,R1
+MY_EXIT
+	B MY_EXIT
+	END
+
+INPUT			OUTPUT		
+ML	DATA		ML	DATA	
+-	0x40 (R0)		-	0x90 (R2)	
+-	0x50 (R1)		-	0xfffffff0 (R3)	
+                    -	0x1400 (R4)	
+
+// 32-bit Data
+AREA prg1, CODE, READONLY
+ENTRY
+START
+    LDR R0, =0xAB000002
+    LDR R1, =0x1200000C
+    ADDS R2, R0, R1
+    SUBS R3, R0, R1
+    MUL R4, R0, R1
+my_exit
+    B my_exit
+END
+
+INPUT			OUTPUT		
+ML	DATA		   ML	DATA	
+-	0xAB000002		-	0xBD00000E	
+-	0x1200000C		-	0x98FFFFF6	
+                    -   0x28000018	
+
+COA-LAB\COA LAB4 KEIL\OBJ2_add sub mul 32bit load store.txt
+//LAB 4
+//OBJECTIVE 2  USING KEIL 5
+//Perform Addition, Subtraction, and Multiplication of two 32-bit numbers using load/store addressing mode
+
+	AREA prg1, CODE, READONLY
+	ENTRY
+START
+	LDR R0,=0X40000000
+	LDR R1,[R0],#4
+	LDR R2,[R0],#4
+	ADDS R3,R1,R2
+	STR R3,[R0],#4
+	SUBS R4,R1,R2
+	STR R4,[R0],#4
+	MUL R5,R1,R2
+	STR R5,[R0]
+my_exit
+	B my_exit
+	END
+
+INPUT			    OUTPUT		
+ML	DATA		    ML	DATA	
+0x10100000	0x40		0x10100008	0x90	
+0x10100004	0x50		0x1010000C	0xfffffff0	
+                        0x10100010	0x1400		
+	
+
+COA-LAB\COA LAB4 KEIL\OBJ3_logical and or xor not 32bit.txt
+//LAB 4
+//OBJECTIVE 3 USING KEIL 5
+//Perform the logical operations (AND, OR, XOR, and NOT) on two 32-bit numbers using load/store addressing mode.
+
+
+
+
+	AREA prg1, CODE, READONLY
+	ENTRY
+START
+	LDR R0,=0X40000000
+	LDR R1,[R0],#4
+	LDR R2,[R0],#4
+	ANDS R3,R2,R1
+	STR R3,[R0],#4
+	ORR R4,R2,R1
+	STR R4,[R0],#4
+	EOR R5,R2,R1
+	STR R5,[R0],#4
+	MVN R6, R1
+	STR R6,[R0]
+my_exit
+	B my_exit
+	END
+
+
+INPUT					OUTPUT		
+ML	DATA				ML	DATA	
+0x10100000	0x40		0x10100008	0x40	
+0x10100004	0x50		0x1010000C	0x50	
+ 						0x10100010	0x10				
+						0x10100014	0xffffffbf
+COA-LAB\COA LAB4 CPULATOR\OBJ1_add sub 32bit data processing.txt
+//LAB 4
+//OBJECTIVE 1 USING CPULATOR
+//Perform Addition and Subtraction of two 32-bit numbers using data processing addressing mode (with immediate data).
+// 8-bit Data
+.global _start
+_start:
+
+	mov r0,#0x40
+	mov r1,#0x50
+	adds r2,r0,#0x50
+	subs r3,r0,#0x50
+	mul r4,r0,r1
+my_exit: b my_exit
+
+
+// 32-bit Data
+.global _start
+_start:
+    ldr r0, =0xAB000002     
+    ldr r1, =0x1200000C     
+    adds r2, r1, r1         
+    subs r3, r0, r1         
+    mul  r4, r0, r1
+
+my_exit: b my_exit
+
+
+
+COA-LAB\COA LAB4 CPULATOR\OBJ2_add sub mul 32bit load store.txt
+//LAB 4
+//OBJECTIVE 2 USING CPULATOR
+//Perform Addition, Subtraction, and Multiplication of two 32-bit numbers using load/store addressing mode
+.global _start
+_start:
+	LDR R0, =0X10100000
+	LDR R1, [R0], #4
+	LDR R2, [R0], #4
+	ADDS R3, R1, R2
+	STR R3, [R0], #4
+	SUBS R4, R1, R2
+	STR R4, [R0], #4
+	MUL R5, R1, R2
+	STR R5, [R0]
+my_exit: b my_exit
+COA-LAB\COA LAB4 CPULATOR\OBJ3_logical and or xor not 32bit.txt
+//LAB 4
+//OBJECTIVE 3 USING CPULATOR
+//Perform the logical operations (AND, OR, XOR, and NOT) on two 32-bit numbers using load/store addressing mode.
+.global _start
+_start:
+	LDR R0, =0X10100000
+	LDR R1, [R0], #4
+	LDR R2, [R0], #4
+	ANDS R3, R2, R1
+	STR R3, [R0], #4
+	ORR R4, R2, R1
+	STR R4, [R0], #4
+	EOR R5, R2, R1
+	STR R5, [R0], #4
+	MVN R6, R1
+	STR R6, [R0]
+my_exit: b my_exit
+COA-LAB\COA LAB5 KEIL\OBJ1_largest in arr.txt
+       //LAB 5 OBJECTIVE 1  USING KEIL
+       //Find the largest number in each array of size N
+	AREA PROG1, CODE, READONLY
+        ENTRY
+        START
+
+        ; Find the largest number from a given array
+
+        LDR     R0, =count         ; R0 holds the address of count
+        LDR     R1, [R0]           ; R1 = count (number of elements)
+        LDR     R2, =array         ; R2 points to the base address of array
+        LDR     R3, [R2], #4       ; R3 = first element (initial max), R2 += 4
+
+back
+        SUBS    R1, R1, #1         ; Decrement count
+        BEQ     fwd                ; If count is 0, go to fwd (done)
+
+        LDR     R4, [R2], #4       ; Load next element into R4, R2 += 4
+        CMP     R3, R4             ; Compare current max (R3) with new value (R4)
+        BGT     back               ; If R3 > R4, keep R3
+        MOV     R3, R4             ; Else, update max
+        B       back
+
+fwd
+        LDR     R5, =LARGEST       ; R5 points to RESULT address
+        STR     R3, [R5]           ; Store max value in memory
+
+exit
+        B       exit               ; Infinite loop to end the program
+
+; Data section
+        AREA DATA1, DATA, READONLY
+count   DCD     0x07               ; Number of elements = 7
+
+array   DCD     0x15               ; Array elements
+        DCD     0x35
+        DCD     0x32
+        DCD     0x45
+        DCD     0x10
+        DCD     0x4F
+        DCD     0x34
+
+        AREA DATA2, DATA, READWRITE
+LARGEST DCD     0x0                ; To store the result (largest number)
+
+        END
+
+COA-LAB\COA LAB5 KEIL\OBJ2_smallest in arr.txt
+//LAB5 OBJECTIVE 2 USING KEIL 5
+//Find the smallest number in each array of size N.
+       
+
+	AREA PROG1, CODE, READONLY
+        ENTRY
+        START
+
+        ; Find the smallest number from a given array
+
+        LDR     R0, =count         ; R0 holds the address of count
+        LDR     R1, [R0]           ; R1 = count (number of elements)
+        LDR     R2, =array         ; R2 points to the base address of array
+        LDR     R3, [R2], #4       ; R3 = first element (initial min), R2 += 4
+
+back
+        SUBS    R1, R1, #1         ; Decrement count
+        BEQ     fwd                ; If count is 0, go to fwd (done)
+
+        LDR     R4, [R2], #4       ; Load next element into R4, R2 += 4
+        CMP     R3, R4             ; Compare current min (R3) with new value (R4)
+        BLT     back               ; If R3 < R4, keep R3
+        MOV     R3, R4             ; Else, update min
+        B       back
+
+fwd
+        LDR     R5, =SMALLEST      ; R5 points to result address
+        STR     R3, [R5]           ; Store min value in memory
+
+exit
+        B       exit               ; Infinite loop to end the program
+
+; Data section
+        AREA DATA1, DATA, READONLY
+count   DCD     0x07               ; Number of elements = 7
+
+array   DCD     0x15               ; Array elements
+        DCD     0x35
+        DCD     0x32
+        DCD     0x45
+        DCD     0x10
+        DCD     0x4F
+        DCD     0x34
+
+        AREA DATA2, DATA, READWRITE
+SMALLEST DCD    0x0                ; To store the result (smallest number)
+
+        END
+
+COA-LAB\COA LAB5 KEIL\OBJ3_separate even odd arr.txt
+//LAB5 OBJECTIVE 3 USING KEIL 5
+//Separate Even numbers and odds numbers in an array of size N.
+
+	 AREA prog2, CODE, READONLY
+        ENTRY      ; Mark the first instruction to execute
+
+START
+        LDR     R0, =count         ; R0 points to count
+        LDR     R1, [R0]           ; R1 = number of elements
+        LDR     R3, =array         ; R3 = base address of array[0]
+        LDR     R4, =even          ; R4 = base address for even numbers
+        LDR     R5, =odd           ; R5 = base address for odd numbers
+
+loop
+        LDR     R6, [R3], #4       ; Load current element into R6, increment R3 by 4
+        ANDS    R7, R6, #1         ; Check if LSB is 0 (even) or 1 (odd)
+        BEQ     store_even         ; If even, branch to store_even
+        STR     R6, [R5], #4       ; Store odd number and increment odd pointer
+        B       next
+
+store_even
+        STR     R6, [R4], #4       ; Store even number and increment even pointer
+
+next
+        SUBS    R1, R1, #1         ; Decrement count
+        BNE     loop               ; If not zero, repeat loop
+
+exit
+        B       exit               ; Infinite loop (end of program)
+
+; -------------------------------
+; Data Section
+; -------------------------------
+
+        AREA DATA1, DATA, READONLY
+count   DCD     0x07               ; Number of elements in the array
+
+array   DCD     0x15               ; Array of integers
+        DCD     0x35
+        DCD     0x32
+        DCD     0x45
+        DCD     0x10
+        DCD     0x4F
+        DCD     0x34
+
+        AREA DATA2, DATA, READWRITE
+even    DCD     0x0                ; Memory space for even numbers
+        DCD     0x0
+        DCD     0x0
+        DCD     0x0
+        DCD     0x0
+        DCD     0x0
+        DCD     0x0
+
+odd     DCD     0x0                ; Memory space for odd numbers
+        DCD     0x0
+        DCD     0x0
+        DCD     0x0
+        DCD     0x0
+        DCD     0x0
+        DCD     0x0
+
+        END
+
+COA-LAB\COA LAB6 KEIL\OBJ1_factorial 8bit.txt
+//LAB6 OBJECTIVE 1 USING KEIL 5
+//Find the factorial of a given 8-bit number
+
+        AREA FACTORIAL, CODE, READONLY
+        ENTRY
+
+START
+        MOV     R0, #5             ; R0 = n (5)
+        MOV     R1, #1             ; R1 = result = 1
+
+fact_loop
+        CMP     R0, #0             ; Check if n == 0
+        BEQ     end_loop           ; If yes, end loop
+
+        MUL     R1, R1, R0         ; R1 = R1 * R0
+        SUBS    R0, R0, #1         ; R0 = R0 - 1
+        B       fact_loop          ; Repeat the loop
+
+end_loop
+        LDR     R2, =RESULT        ; Load address of RESULT
+        STR     R1, [R2]           ; Store factorial result in memory
+
+EXT
+        B       EXT                ; Infinite loop to end program
+        AREA RES, DATA, READWRITE
+RESULT  DCD     0x0                ; To store factorial result
+
+        END
+
+COA-LAB\COA LAB6 KEIL\OBJ2_fibonacci 8bit.txt
+//LAB6 OBJECTIVE 2 USING KEIL 5  
+//Find the Fibonacci Series up to n digits (8-bit number).
+
+        AREA fibnacci, CODE, READONLY
+        ENTRY
+
+START
+        MOV     R1, #1             ; R1 = 1 (second Fibonacci number)
+        MOV     R2, #0             ; R2 = 0 (first Fibonacci number)
+        MOV     R3, #0             ; R3 = temp holder for sum
+
+        LDR     R0, =COUNT         ; R0 -> COUNT
+        LDRB    R5, [R0]           ; R5 = number of terms (N)
+        LDR     R6, =FIB_SERIES    ; R6 -> base address to store series
+
+        CMP     R5, #1             ; If N <= 1
+        BLE     STORE_SINGLE       ; Store a single Fibonacci number
+
+        STRB    R2, [R6], #1       ; Store first number (0), then R6++
+        SUBS    R5, R5, #1         ; Decrease count (N-1)
+        STRB    R1, [R6], #1       ; Store second number (1), then R6++
+        SUBS    R5, R5, #1         ; Decrease count (N-2)
+
+FIB_LOOP
+        BEQ     DONE               ; If count is 0, we're done
+
+        ADD     R3, R1, R2         ; R3 = R1 + R2 (next term)
+        STRB    R3, [R6], #1       ; Store next term, R6++
+
+        MOV     R2, R1             ; R2 = R1 (prev)
+        MOV     R1, R3             ; R1 = new term
+
+        SUBS    R5, R5, #1         ; Decrement counter
+        B       FIB_LOOP           ; Repeat loop
+
+STORE_SINGLE
+        STRB    R2, [R6]           ; If only one term, store 0
+
+DONE
+        B       DONE               ; Infinite loop to end
+
+        AREA DATA1, DATA, READWRITE
+COUNT       DCB     0x0A           ; N = 10
+FIB_SERIES  DCB     0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0 ; space for 10 bytes
+
+        END
+
+COA-LAB\COA LAB7 CPULATOR\obj1_print null.txt
+
+//Print a null terminated string
+
+.global _start
+_start:
+    .equ UART_BASE, 0xff201000
+    LDR R4, =First
+    LDR R1, =UART_BASE
+PRINT:
+    LDRB R0, [R4], #1
+    CMP R0, #0
+    BEQ STOP
+    STRB R0, [R1]
+    B PRINT
+STOP:
+    B STOP
+
+.data
+.align
+First: .asciz "Sunita Samant\n"
+
+COA-LAB\COA LAB7 CPULATOR\obj2_count space.txt
+
+//Count number of spaces in a string. 
+.global _start
+_start:
+    .equ UART_BASE, 0xff201000
+    LDR R0, =STRING1
+    MOV R1, #0x00
+    MOV R3, #0x20
+    LDR R4, =NULL_VALUE
+    LDRB R5, [R4]
+
+BCK:
+    LDRB R2, [R0], #1
+    CMP R2, R5
+    BEQ PRINT
+    CMP R2, R3
+    ADDEQ R1, R1, #1
+    B BCK
+
+PRINT:
+    LDR R4, =STRING2
+    LDR R2, =UART_BASE
+
+PRINT1:
+    LDRB R0, [R4], #1
+    CMP R0, #0
+    BEQ STOP1
+    STRB R0, [R2]
+    B PRINT1
+
+STOP1:
+    LDR R7, =RESULT
+    STRB R1, [R7]
+    LDR R6, =UART_BASE
+    ADD R1, R1, #0x30
+    STRB R1, [R6]
+
+STOP:
+    B STOP
+
+.data
+NULL_VALUE: .byte 0x0a
+STRING1: .asciz "A A A A\n"
+STRING2: .asciz "No of Spaces : "
+RESULT: .byte 0
+
+COA-LAB\COA LAB7 KEIL\obj1_print null.txt
+//LAB7 OBJECTIVE 1 USING KEIL 5
+//Print a null terminated string
+        AREA RESET, CODE, READONLY
+        ENTRY
+        EXPORT __main
+
+__main
+        LDR     R4, =First              ; Load address of string
+        LDR     R1, =USART2_BASE        ; UART base address
+
+loop_print
+        LDRB    R0, [R4], #1            ; Load a character
+        CMP     R0, #0                  ; Check for null-terminator
+        BEQ     done                    ; End if null
+
+wait_txe
+        LDR     R2, [R1, #0x1C]         ; USART_SR (offset 0x1C on STM32)
+        TST     R2, #0x80               ; TXE (bit 7) == Transmit data register empty
+        BEQ     wait_txe                ; Wait if not ready
+
+        STRB    R0, [R1, #0x28]         ; USART_DR (offset 0x28)
+        B       loop_print              ; Continue loop
+
+done
+        B       done                    ; Halt
+
+; ----------------------------------
+USART2_BASE   EQU 0x40004400           ; Base address for USART2 (STM32F4)
+
+        AREA DATA, DATA, READWRITE
+First   DCB "Barsa samantaray", 0x0A, 0 ; string + newline + null terminator
+
+        END
+
+COA-LAB\COA LAB7 KEIL\obj2_count space.txt
+//LAB7 OBJECTIVE 2 USING KEIL 5
+//Count number of spaces in a string. 
+
+       AREA RESET, CODE, READONLY
+        ENTRY
+        EXPORT __main
+
+__main
+        LDR     R0, =STRING1           ; Pointer to string
+        MOV     R1, #0                 ; Space counter
+        MOV     R3, #0x20              ; ASCII for space
+        LDR     R4, =NULL_VALUE
+        LDRB    R5, [R4]               ; ASCII for newline '\n'
+
+COUNT_LOOP
+        LDRB    R2, [R0], #1           ; Load byte from string
+        CMP     R2, R5                 ; If newline, stop counting
+        BEQ     PRINT_MSG
+        CMP     R2, R3                 ; Compare with space
+        ADDEQ   R1, R1, #1             ; Increment counter if space
+        B       COUNT_LOOP
+
+PRINT_MSG
+        LDR     R4, =STRING2           ; Message string
+        LDR     R2, =USART2_BASE       ; USART2 base address
+
+PRINT_LOOP
+        LDRB    R0, [R4], #1
+        CMP     R0, #0
+        BEQ     DISPLAY_COUNT
+
+WAIT_TXE1
+        LDR     R6, [R2, #0x1C]        ; USART_SR offset 0x1C
+        TST     R6, #0x80              ; TXE bit (bit 7)
+        BEQ     WAIT_TXE1
+        STRB    R0, [R2, #0x28]        ; USART_DR offset 0x28
+        B       PRINT_LOOP
+
+; Display count digit
+DISPLAY_COUNT
+        LDR     R7, =RESULT
+        STRB    R1, [R7]               ; Store result in memory
+        ADD     R1, R1, #0x30          ; Convert to ASCII
+
+WAIT_TXE2
+        LDR     R6, [R2, #0x1C]
+        TST     R6, #0x80
+        BEQ     WAIT_TXE2
+        STRB    R1, [R2, #0x28]        ; Display digit
+
+STOP
+        B       STOP
+
+;---------------------------------------------
+USART2_BASE    EQU 0x40004400          ; Base address for USART2
+
+        AREA DATA, DATA, READWRITE
+NULL_VALUE     DCB 0x0A                ; ASCII '\n'
+STRING1        DCB "A A A A", 0x0A, 0  ; Input string
+STRING2        DCB "No of Spaces : ", 0 ; Message
+RESULT         DCB 0                   ; Result storage
+
+        END
+
+COA-LAB\README.md
+COA-LAB
