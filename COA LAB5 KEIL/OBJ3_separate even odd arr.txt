@@ -28,10 +28,6 @@ next
 exit
         B       exit               ; Infinite loop (end of program)
 
-; -------------------------------
-; Data Section
-; -------------------------------
-
         AREA DATA1, DATA, READONLY
 count   DCD     0x07               ; Number of elements in the array
 

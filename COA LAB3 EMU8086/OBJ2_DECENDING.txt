@@ -4,7 +4,7 @@
 
 
 .data
-count db 05h
+count db 04h
 value db 32h, 45h, 0fh, 05h
 
 .code

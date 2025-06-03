@@ -20,7 +20,7 @@ INC SI
 MOV [SI], AX      ; Store sum  
 INC SI  
 INC SI  
-MOV [SI], CH      ; Store carry  
+MOV [SI], CH      ; Store carry  upto sum
 DIV BX            ; AX ÷ BX  
 INC SI  
 INC SI  
